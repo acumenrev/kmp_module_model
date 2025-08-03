@@ -2,14 +2,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "Shared",
+    name: "KMPShared",
     platforms: [
-        .iOS(.v17),
+        .iOS(.v14)
     ],
     products: [
         .library(
-            name: "Shared",
-            targets: ["Shared"]
+            name: "KMPShared",
+            targets: ["KMPShared"]
         ),
     ],
     dependencies: [
@@ -17,8 +17,8 @@ let package = Package(
     ],
     targets: [
         .binaryTarget(
-            name: "Shared",
-            path: "./shared/build/XCFrameworks/release/Shared.xcframework"
+            name: "KMPShared",
+            path: "./shared/build/XCFrameworks/release/KMPShared.xcframework"
         )
     ]
 )

@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.androidLibrary) // Optional
 }
 kotlin {
-    val xcf = XCFramework("Shared")
+    val xcf = XCFramework("KMPShared")
 
 
     androidTarget {
@@ -22,7 +22,7 @@ kotlin {
     val iosTargets = listOf(iosX64(), iosArm64(), iosSimulatorArm64())
     iosTargets.forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Shared"
+            baseName = "KMPShared"
             isStatic = true
             xcf.add(this)
 
