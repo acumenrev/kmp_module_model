@@ -12,29 +12,18 @@ class SharedAPI {
     private val userUseCase = UserUseCase(repository)
     private val scope = CoroutineScope(Dispatchers.Main)
 
-    // iOS-friendly callback-based functions
-    fun loadUsers(
-        onSuccess: (List<User>) -> Unit,
-        onError: (String) -> Unit
-    ) {
-        scope.launch {
-            userUseCase.loadUsers()
-                .onSuccess { users -> onSuccess(users) }
-                .onFailure { error -> onError(error.message ?: "Unknown error") }
-        }
+    // MARK: - Async/Await API (Modern approach)
+
+    @Throws(Exception::class)
+    suspend fun loadUsers(): List<User> {
+        val result = userUseCase.loadUsers()
+        return result.getOrThrow()
     }
 
-    fun selectUser(
-        userId: String,
-        onSuccess: (UserProfile?) -> Unit,
-        onError: (String) -> Unit
-    ) {
-        scope.launch {
-            val reuslt: Result<UserProfile?> = userUseCase.selectUser(userId)
-            reuslt.onSuccess { profile -> onSuccess(profile) }
-                .onFailure { error -> onError(error.message ?: "Unknown error" ) }
-
-        }
+    @Throws(Exception::class)
+    suspend fun selectUser(userId: String): UserProfile? {
+        val result = userUseCase.selectUser(userId)
+        return result.getOrThrow()
     }
 
     fun validateEmail(email: String): Boolean {
